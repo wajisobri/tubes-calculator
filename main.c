@@ -1,16 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <string.h>
 #include "binarytree.h"
 #include "calculator.h"
 
 int main(){
-	char expressionInput[512];
+	char expressionInput[1001];
 	char *expressionInputAddr;
 	float calculateResult;
 	bool isValid;
 
-	scanf("%s", expressionInput);
+	strcpy(expressionInput, calculatorMenu());
 
 	isValid = validateExpression(expressionInput);
 	
@@ -22,6 +23,6 @@ int main(){
 	}
 
 	if (isValid) {
-		printf("\n%.2f\n", calculateResult);
+		printf("\nRESULT: %.2f\n", calculateResult);
 	}
 }

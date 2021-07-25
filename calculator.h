@@ -11,6 +11,8 @@
 #define UNDEFINE -9999
 #define PI 3.14159265
 
+char* calculatorMenu();
+
 int getDegree(char operator);
 int getCharType(char value);
 float evaluateTree(addrNode T, bool *isValid);

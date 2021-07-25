@@ -8,6 +8,112 @@
 #define UNDEFINE -9999
 #define PI 3.14159265
 
+char* calculatorMenu() {
+	int pilihan;
+	static char math_expression[1001] = "";
+	int char_counter = 0;
+
+	do {
+		printf("===============================\n");
+		printf("%s\n", math_expression);
+		printf("===============================\n");
+
+		printf("\n");
+
+		printf("(0) 0     (10) (       (20) log\n");
+		printf("(1) 1     (11) )       (21) ln\n");
+		printf("(2) 2     (12) +       (22) =\n");
+		printf("(3) 3     (13) -       (23) <-\n");
+		printf("(4) 4     (14) *       (24) CE\n");
+		printf("(5) 5     (15) /        \n");
+		printf("(6) 6     (16) ^        \n");
+		printf("(7) 7     (17) sin      \n");
+		printf("(8) 8     (18) cos      \n");
+		printf("(9) 9     (19) tan      \n");
+
+		printf("INPUT: ");
+		scanf("%d", &pilihan);
+
+		if ((pilihan < 0) && (pilihan >24)) {
+			// user mamasukkan opsi yang tidak sesuai
+			printf("Pilih opsi yang benar!");
+		} else if (pilihan == 23) {
+			// user memilih opsi <- (23) hapus 1 char
+			if (char_counter == 0) {
+				continue;
+			}
+			char_counter--;
+			math_expression[char_counter] = '\0';
+		} else if (pilihan == 24) {
+			// user memilih opsi CE (24) hapus semua
+			for (int i=char_counter-1; i >= 0; i--) {
+				math_expression[i] = '\0';
+			}
+			char_counter = 0;
+		} else {
+			if (pilihan < 10) {
+				math_expression[char_counter] = pilihan + '0';
+			} else {
+				switch (pilihan) {
+					case 10:
+						math_expression[char_counter] = '(';
+						break;
+
+					case 11:
+						math_expression[char_counter] = ')';
+						break;
+	
+					case 12:
+						math_expression[char_counter] = '+';
+						break;
+					
+					case 13:
+						math_expression[char_counter] = '-';
+						break;
+
+					case 14:
+						math_expression[char_counter] = '*';
+						break;
+
+					case 15:
+						math_expression[char_counter] = '/';
+						break;
+
+					case 16:
+						math_expression[char_counter] = '^';
+						break;
+
+					case 17:
+						math_expression[char_counter] = 's';
+						break;
+
+					case 18:
+						math_expression[char_counter] = 'c';
+						break;
+							
+					case 19:
+						math_expression[char_counter] = 't';
+						break;
+
+					case 20:
+						math_expression[char_counter] = 'l';
+						break;
+
+					case 21:
+						math_expression[char_counter] = 'n';
+						break;
+
+					default:
+						break;
+				}
+			}
+			char_counter++;
+		}
+	} while (pilihan != 22);
+
+	return (char*) math_expression;
+}
+
 int getDegree(char operator) {
 	switch(operator){
 		case '+' : return 1; break;
@@ -186,7 +292,8 @@ void convertExpression(char **expression, float *calculateResult, bool *isValid)
 	currentDegree = 10;
 	
 	while(**expression != '\0' && **expression != ')' && *isValid) {
-		printf("[%c %d] ",**expression, isLastOperator);
+		// debug
+		// printf("[%c %d] ",**expression, isLastOperator);
 		if(getCharType(**expression) == -2){ // merupakan karakter '('
 			*expression += 1;
 			convertExpression(expression, &tempCalcResult, isValid);
@@ -278,7 +385,8 @@ void convertExpression(char **expression, float *calculateResult, bool *isValid)
 			isLastOperator = false;
 		}
 
-		printf(" Last Node %c , %.2f\n",Info(lastNode).operator, Info(lastNode).value);
+		// debug
+		// printf(" Last Node %c , %.2f\n",Info(lastNode).operator, Info(lastNode).value);
 
 		// mengabaikan whitespace
 		while (**expression == ' ') {
@@ -289,7 +397,7 @@ void convertExpression(char **expression, float *calculateResult, bool *isValid)
 		*expression += 1;
 	}
 
-	PrintTree(T);
+	// PrintTree(T);
 	
 	if(*isValid){
 		*calculateResult = evaluateTree(T, isValid);
