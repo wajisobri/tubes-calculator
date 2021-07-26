@@ -1,5 +1,8 @@
-#include<stdio.h>
-#include<math.h>
+#include <stdio.h>
+#include <math.h>
+#include <stdlib.h>
+#include "calculator-luas.h"
+#include "common.h"
 
 int awal;
 int pilihan();
@@ -15,21 +18,20 @@ float hasil;
 int pilih;
 int phi = 3.14;
 
-
 /* 	Type: Functiom
 	Menghitung luas Segitiga
 	I.S. : -
 	F.S : Menampilkan Halaman Awal
 	Penanggung Jawab: Eben Ezer Napitu
 	*/
-int main(){
+int calculatorLuas(){
 	printf("================================\n");
 	printf("Pilih Bangun Ruang\n");
 	printf("1. Persegi\n2. Persegi Panjang\n3. Segitiga\n4. Trapesium\n");
 	printf("5. Layang-layang\n6. Belah Ketupat\n7. Lingkaran\n");
 	printf(" Pilihan : %i\n", pilih);
 	scanf("%i", &pilih);
-	system("cls");
+	system(CLEARSCREEN);
 	switch (pilih){
 		case 1 :
 			persegi();

@@ -4,6 +4,7 @@
 #include <string.h>
 #include <math.h>
 #include "binarytree.h"
+#include "common.h"
 
 #define UNDEFINE -9999
 #define PI 3.14159265
@@ -13,11 +14,13 @@
 	Penanggung Jawab: Luthfi Maajid
 	*/
 char* calculatorMenu() {
-	int pilihan;
+	int pilihan = 1;
 	static char math_expression[1001] = "";
 	int char_counter = 0;
 
 	do {
+		system(CLEARSCREEN);
+		printf("KALKULATOR UMUM\n");
 		printf("===============================\n");
 		printf("%s\n", math_expression);
 		printf("===============================\n");
@@ -35,13 +38,15 @@ char* calculatorMenu() {
 		printf("(8) 8     (18) cos      \n");
 		printf("(9) 9     (19) tan      \n");
 
+		if ((pilihan < 0) || (pilihan >24)) {
+			// user mamasukkan opsi yang tidak sesuai
+			printf("Pilih opsi yang benar!");
+		}
+
 		printf("INPUT: ");
 		scanf("%d", &pilihan);
 
-		if ((pilihan < 0) && (pilihan >24)) {
-			// user mamasukkan opsi yang tidak sesuai
-			printf("Pilih opsi yang benar!");
-		} else if (pilihan == 23) {
+		if (pilihan == 23) {
 			// user memilih opsi <- (23) hapus 1 char
 			if (char_counter == 0) {
 				continue;

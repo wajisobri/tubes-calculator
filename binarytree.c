@@ -2,6 +2,10 @@
 #include <stdio.h>
 
 /* *** Konstruktor *** */
+
+/* Menghasilkan sebuah pohon biner dari A, L, dan R, jika alokasi berhasil */
+/* Menghasilkan pohon kosong (Nil) jika alokasi gagal */
+/* Penanggung jawab: Luthfi Maajid */
 addrNode Tree(infotype data){
 	addrNode Root;
 	
@@ -15,17 +19,14 @@ addrNode Tree(infotype data){
 		return Nil;
 	}
 }
-/* Menghasilkan sebuah pohon biner dari A, L, dan R, jika alokasi berhasil */
-/* Menghasilkan pohon kosong (Nil) jika alokasi gagal */
-
-void CreateTree(infotype data, addrNode *Root) {
-	*Root = Tree(data);
-}
-/* I.S. Akar, L, R terdefinisi. P Sembarang */
-/* F.S. Membentuk pohon P dengan Akar(P)=Akar, Left(P)=L, dan Right(P)=R 
-		jika alokasi berhasil. P = Nil jika alokasi gagal. */
 
 /* Manajemen Memory */
+
+/* Mengirimkan addrNode hasil alokasi sebuah elemen */
+/* Jika alokasi berhasil, maka addrNode tidak Nil, dan misalnya menghasilkan P, 
+  maka Akar(P) = X, Left(P) = Nil, Right(P)=Nil */
+/* Jika alokasi gagal, mengirimkan Nil */
+/* Penanggung jawab: Luthfi Maajid */
 addrNode Alokasi(infotype data) {
 	addrNode P;
 	
@@ -40,18 +41,19 @@ addrNode Alokasi(infotype data) {
 		return Nil;
 	}
 }
-/* Mengirimkan addrNode hasil alokasi sebuah elemen */
-/* Jika alokasi berhasil, maka addrNode tidak Nil, dan misalnya menghasilkan P, 
-  maka Akar(P) = X, Left(P) = Nil, Right(P)=Nil */
-/* Jika alokasi gagal, mengirimkan Nil */
 
-void Dealokasi(addrNode T) {
-	free(T);
-}
 /* I.S. P terdefinisi */
 /* F.S. P dikembalikan ke sistem */
 /* Melakukan dealokasi/pengembalian addrNode P */
+/* Penanggung jawab: Luthfi Maajid */
+void Dealokasi(addrNode T) {
+	free(T);
+}
 
+/*
+  konstruktor statis untuk infotype, menerima 2 input lalu mengembalikan dengan tipe struct infotype
+  Penanggung jawab: Luthfi Maajid
+*/
 infotype CreateInfo(float value, char operator) {
 	infotype tempInfo;
 
@@ -62,20 +64,23 @@ infotype CreateInfo(float value, char operator) {
 }
 
 /* *** Predikat-Predikat Penting *** */
+
+/* Mengirimkan true jika P adalah pohon biner kosong */
+/* Penanggung jawab: Luthfi Maajid */
 bool IsEmpty(addrNode T) {
 	return(T == Nil);
 }
-/* Mengirimkan true jika P adalah pohon biner kosong */
 
+/* Mengirimkan true jika P adalah pohon biner tidak kosong dan hanya memiliki 1 elemen */
+/* Penanggung jawab: Luthfi Maajid */
 bool IsLeaf(addrNode T) {
 	return((Right(T) == Nil) && (Left(T) == Nil));
 }
-/* Mengirimkan true jika P adalah pohon biner tidak kosong dan hanya memiliki 1 elemen */
+
 
 bool HasLeftChild(addrNode T) {
 	return((Right(T) == Nil) && (Left(T) != Nil));
 }
-/* Mengirimkan true jika pohon biner tidak kosong P adalah pohon unerleft: hanya mempunyai subpohon kiri */
 
 bool HasRightChild(addrNode T) {
 	return((Right(T) != Nil) && (Left(T) == Nil));
