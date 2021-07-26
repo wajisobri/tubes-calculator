@@ -8,6 +8,10 @@
 #define UNDEFINE -9999
 #define PI 3.14159265
 
+/* 	Type: Function
+	Deskripsi: Menampilkan ui lalu menerima ekpresi matematika dari user input dan mengembalikan ekpresi matematikanya
+	Penanggung Jawab: Luthfi Maajid
+	*/
 char* calculatorMenu() {
 	int pilihan;
 	static char math_expression[1001] = "";
@@ -114,6 +118,10 @@ char* calculatorMenu() {
 	return (char*) math_expression;
 }
 
+/*	Type: Function
+	Deskripsi: Mendapatkan derajat dari suatu operator, mengembalikan dalam bentuk integer
+	Penanggung Jawab: Sobri Waskito Aji
+	*/
 int getDegree(char operator) {
 	switch(operator){
 		case '+' : return 1; break;
@@ -132,6 +140,11 @@ int getDegree(char operator) {
 	}
 }
 
+/*	Type: Function
+	Deskripsi: Mendapatkan jenis/tipe dari suatu karakter, apakah angka, tanda kurung, atau operator,
+			mengembalikan dalam bentuk integer
+	Penanggung Jawab: Sobri Waskito Aji
+	*/
 int getCharType(char value) {
 	switch(value){
 		case '0' : return 0; break;
@@ -145,37 +158,38 @@ int getCharType(char value) {
 		case '8' : return 8; break;
 		case '9' : return 9; break;
 		case '(' : return -2; break;
-		default : return -1; break;
+		default : return -1; break; // operator
 	}
 }
 
+/*	Type: Function
+	Deskripsi: Melakukan perhitungan terhadap Binary Expression Tree dengan Root = T yang dilakukan secara PostOrder
+			Mengembalikan dalam bentuk float
+	Penanggung Jawab: Sobri Waskito Aji
+	*/
 float evaluateTree(addrNode T, bool *isValid) {
 	float calcResult=0;
-	if(*isValid){
+	if(*isValid) { // ekspresi valid
 		float leftCalc=0, rightCalc=0;
 		bool isValid2=true;
 		
-		if((Info(T)).operator == 'b'){
+		if((Info(T)).operator == 'b'){ // Operand
 			calcResult = (Info(T)).value;
 		} else if((Info(T)).operator == '+') { // Operasi Addition ( + )
 			leftCalc = evaluateTree(Left(T),&isValid2);
 			rightCalc = evaluateTree(Right(T),&isValid2);
-
 			calcResult = leftCalc+rightCalc;
 		} else if((Info(T)).operator == '-') { // Operasi Substraction ( - )
 			leftCalc = evaluateTree(Left(T),&isValid2);
 			rightCalc = evaluateTree(Right(T),&isValid2);
-			
 			calcResult = leftCalc-rightCalc;
 		} else if((Info(T)).operator == '*') { // Operasi Multiplication ( * )
 			leftCalc = evaluateTree(Left(T),&isValid2);
 			rightCalc = evaluateTree(Right(T),&isValid2);
-			
 			calcResult = leftCalc*rightCalc;
 		} else if((Info(T)).operator == '/') { // Operasi Division ( / )
 			leftCalc = evaluateTree(Left(T),&isValid2);
 			rightCalc = evaluateTree(Right(T),&isValid2);
-			
 			if(rightCalc != 0){
 				calcResult = leftCalc/rightCalc;
 			} else{
@@ -184,7 +198,6 @@ float evaluateTree(addrNode T, bool *isValid) {
 		} else if((Info(T)).operator == '^') { // Operasi Exponent ( ^ )
 			leftCalc = evaluateTree(Left(T),&isValid2);
 			rightCalc = evaluateTree(Right(T),&isValid2);
-			
 			if((leftCalc < 0) && ((rightCalc) > (-1)) && (leftCalc < 1)){ // operand tidak boleh negatif
 				*isValid = false;
 			} else{
@@ -193,7 +206,6 @@ float evaluateTree(addrNode T, bool *isValid) {
 		} else if((Info(T)).operator == 'v') { // Operasi Square Root ( √ )
 			if(Left(T) != Nil) leftCalc = evaluateTree(Left(T),&isValid2);
 			if(Right(T) != Nil) rightCalc = evaluateTree(Right(T),&isValid2);
-			
 			if(rightCalc < 0) { // operand tidak boleh negatif
 				*isValid = false;
 			} else {
@@ -202,7 +214,6 @@ float evaluateTree(addrNode T, bool *isValid) {
 		} else if((Info(T)).operator == 's') { // Operasi Trigonometri ( Sin )
 			if(Left(T) != Nil) leftCalc = evaluateTree(Left(T),&isValid2);
 			if(Right(T) != Nil) rightCalc = evaluateTree(Right(T),&isValid2);
-			
 			if(rightCalc < 0) {
 				*isValid = false;
 			} else {
@@ -211,7 +222,6 @@ float evaluateTree(addrNode T, bool *isValid) {
 		} else if((Info(T)).operator == 'c') { // Operasi Trigonometri ( Cos )
 			if(Left(T) != Nil) leftCalc = evaluateTree(Left(T),&isValid2);
 			if(Right(T) != Nil) rightCalc = evaluateTree(Right(T),&isValid2);
-			
 			if(rightCalc < 0) {
 				*isValid = false;
 			} else {
@@ -220,7 +230,6 @@ float evaluateTree(addrNode T, bool *isValid) {
 		} else if((Info(T)).operator == 't') { // Operasi Trigonometri ( Tan )
 			if(Left(T) != Nil) leftCalc = evaluateTree(Left(T),&isValid2);
 			if(Right(T) != Nil) rightCalc = evaluateTree(Right(T),&isValid2);
-			
 			if(rightCalc < 0) {
 				*isValid = false;
 			} else {
@@ -229,7 +238,6 @@ float evaluateTree(addrNode T, bool *isValid) {
 		} else if((Info(T)).operator == 'l') { // Operasi Logaritma ( Log10 )
 			if(Left(T) != Nil) leftCalc = evaluateTree(Left(T),&isValid2);
 			if(Right(T) != Nil) rightCalc = evaluateTree(Right(T),&isValid2);
-			
 			if(rightCalc < 0) {
 				*isValid = false;
 			} else {
@@ -238,7 +246,6 @@ float evaluateTree(addrNode T, bool *isValid) {
 		} else if((Info(T)).operator == 'n') { // Operasi Logaritma ( Ln )
 			if(Left(T) != Nil) leftCalc = evaluateTree(Left(T),&isValid2);
 			if(Right(T) != Nil) rightCalc = evaluateTree(Right(T),&isValid2);
-			
 			if(rightCalc < 0) {
 				*isValid = false;
 			} else {
@@ -247,11 +254,9 @@ float evaluateTree(addrNode T, bool *isValid) {
 		} else if((Info(T)).operator == '.') { // Operasi Lain ( Decimal )
 			leftCalc = evaluateTree(Left(T),&isValid2);
 			rightCalc = evaluateTree(Right(T),&isValid2);
-			
 			while((rightCalc > 1) || (rightCalc < -1)){
 				rightCalc /= 10;
 			}
-			
 			calcResult = leftCalc+rightCalc;
 		} else {
 			calcResult = 0;
@@ -261,9 +266,15 @@ float evaluateTree(addrNode T, bool *isValid) {
 	return calcResult;
 }
 
+/*	Type: Function
+	Deskripsi: Memvalidasi input ekspresi matematika dengan mencocokkan jumlah tanda kurung
+			Mengembalikan dalam bentuk boolean
+	Penanggung Jawab: Sobri Waskito Aji
+	*/
 bool validateExpression(char *expression) {
 	int leftParentheses=0, rightParentheses=0;
 	
+	// iterasi karakter pada ekspresi
 	while(*expression != '\0'){
 		if(*expression == '(')
 			leftParentheses++;
@@ -276,6 +287,12 @@ bool validateExpression(char *expression) {
 	return (leftParentheses == rightParentheses);
 }
 
+/* 	Type: Procedure
+	Membangun Tree dengan aturan Binary Expression Tree
+	I.S. : Tree belum terbentuk
+	F.S. : Tree telah terbentuk berjenis Binary Expression Tree
+	Penanggung Jawab: Sobri Waskito Aji
+	*/
 void convertExpression(char **expression, float *calculateResult, bool *isValid) {
 	addrNode T, lastNode, searchPos;
 	infotype tempInfo;
@@ -291,81 +308,92 @@ void convertExpression(char **expression, float *calculateResult, bool *isValid)
 	lastNode = T;
 	currentDegree = 10;
 	
+	// iterasi karakter pada ekspresi matematika(String)
 	while(**expression != '\0' && **expression != ')' && *isValid) {
 		// debug
 		// printf("[%c %d] ",**expression, isLastOperator);
-		if(getCharType(**expression) == -2){ // merupakan karakter '('
+
+		if(getCharType(**expression) == -2) { // merupakan jenis tanda kurung '('
 			*expression += 1;
-			convertExpression(expression, &tempCalcResult, isValid);
+			convertExpression(expression, &tempCalcResult, isValid); // rekursif hingga ditemui tanda kurung ')'
 			if(*isValid) {
 				tempInfo = CreateInfo(tempCalcResult, 'b');
 				if (Info(lastNode).operator == 'b') {
-					//ubah node
+					// replace node
 					Info(lastNode) = tempInfo;
 				} else {
-					// add daun
+					// add anak kanan
 					AddLeaf(&lastNode, false, tempInfo);
 					lastNode = Right(lastNode);
 				}
 				isLastOperator = false;
 			}
-		} else if(getCharType(**expression) == -1){ // merupakan operator
+
+		} else if(getCharType(**expression) == -1) { // merupakan jenis operator
 			tempInfo = CreateInfo(UNDEFINE, **expression);
-			if(getDegree(**expression) != 4) { // bukan merupakan operator trigonometri ( sin/cos/tan/log/ln )
-				if(!isLastOperator){ // sebelumnya bukan operator
-					if(getDegree(**expression) == 5){ // bertemu titik ( decimal )
-						if(isDecimal){
+			if(getDegree(**expression) != 4) { // bukan merupakan operator trigonometri(sin/cos/tan/log/ln)
+				if(!isLastOperator) { // karakter sebelumnya bukan operator
+					if(getDegree(**expression) == 5) { // merupakan titik(decimal)
+						if(isDecimal){ // karakter sebelumnya titik
 							*isValid = false;
 						} else {
 							isDecimal = true;
-							if(getDegree(**expression) <= currentDegree){
+							if(getDegree(**expression) <= currentDegree){ // merupakan derajat tertinggi
+								// Restrukturisasi Tree
 								ChangeRoot(&T, tempInfo, true);
 								lastNode = T;
-							} else{
+							} else {
+								// Rotasi kiri
 								ChangeRoot(&lastNode, tempInfo, true);
 							}
 							currentDegree = getDegree(**expression);
 							isLastOperator = true;
 						}
-					} else { // bukan titik ( operator )
+					} else { // bukan titik (operator)
 						isDecimal = false;
 						if(getDegree(**expression) < currentDegree){
-							if(getDegree(Info(T).operator) < getDegree(**expression)) {
+							if(getDegree(Info(T).operator) < getDegree(**expression)) { // merupakan derajat tertinggi
 								searchPos = Parent(lastNode);
 								while(getDegree(Info(Parent(searchPos)).operator) > getDegree(**expression)) {
 									searchPos = Parent(searchPos);
 								}
+								// Rotasi kiri
 								ChangeRoot(&searchPos, tempInfo, true);
 								lastNode = searchPos;
 							} else {
+								// Restrukturisasi Tree
 								ChangeRoot(&T, tempInfo, true);
 								lastNode = T;
 							}
 						} else {
 							if(getDegree(**expression) == 1) {
+								// Restrukturisasi Tree
 								ChangeRoot(&T, tempInfo, true);
 								lastNode = T;
 							} else {
+								// Rotasi kiri
 								ChangeRoot(&lastNode, tempInfo, true);
 							}
 						}
 						currentDegree = getDegree(**expression);
 						isLastOperator = true;
 					}
-				} else{
+				} else { // karakter sebelumnya operator
 					*isValid = false;
 				}
-			} else { // merupakan operator trigonometri ( sin/cos/tan/log/ln )
-				if(isLastOperator) { // sebelumnya operator
+			} else { // merupakan operator trigonometri(sin/cos/tan/log/ln)
+				if(isLastOperator) { // karakter sebelumnya operator
 					isDecimal = false;
+					// Add anak kanan
 					AddLeaf(&lastNode, false, tempInfo);
 					lastNode = Right(lastNode);
 					currentDegree = getDegree(**expression);
 					isLastOperator = true;
-				} else { // sebelumnya bukan operator
+				} else { // karakter sebelumnya bukan operator
 					if(Info(lastNode).value != 0) { // node pertama
 						*isValid = false;
 					} else {
+						// Replace node
 						isDecimal = false;
 						Info(lastNode) = tempInfo;
 						currentDegree = getDegree(**expression);
@@ -374,10 +402,11 @@ void convertExpression(char **expression, float *calculateResult, bool *isValid)
 				}
 			}
 		} else { // merupakan operand
-			if (Info(lastNode).operator == 'b') { // node pertama (operand pertama)
+			if (Info(lastNode).operator == 'b') { // node pertama(operand pertama)
+				// tambah dan replace node
 				Info(lastNode).value = Info(lastNode).value * 10 + getCharType(**expression);
 			} else {
-				// add daun
+				// add anak kanan
 				tempInfo = CreateInfo(getCharType(**expression), 'b');
 				AddLeaf(&lastNode, false, tempInfo);
 				lastNode = Right(lastNode);
@@ -397,15 +426,16 @@ void convertExpression(char **expression, float *calculateResult, bool *isValid)
 		*expression += 1;
 	}
 
+	// debug
 	// PrintTree(T);
 	
-	if(*isValid){
+	if(*isValid) { // penyusunan ekspresi valid
 		*calculateResult = evaluateTree(T, isValid);
-		if(!*isValid){
+		if(!*isValid) { // perhitungan tidak valid
 			printf("Calculation Error\n");
 		}
-	} else{
-		printf("Syntax Error\n");
+	} else {
+		printf("Expression Error\n");
 	}
 	
 	DestroyTree(T);
