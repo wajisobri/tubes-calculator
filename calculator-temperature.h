@@ -4,7 +4,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void calculatorTemperature();
 
 void gotoxy(int x,int y);
 
