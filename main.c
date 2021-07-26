@@ -63,7 +63,7 @@ int main(){
 			case 2:
 			// pilihan kalkulator suhu
 				system(CLEARSCREEN);
-				calculatorTemperature();
+				suhuConverterMenu();
 
 				break;
 
