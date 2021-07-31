@@ -8,6 +8,7 @@ int decimalToBinary(int decimal);
 int decimalToOctal(int decimal);
 int decimalToHexadecimal(int decimal);
 int binaryToDecimal(int binary);
+int octalToDecimal(int octal, int i);
 void bilanganConverterMenu();
 
 #endif

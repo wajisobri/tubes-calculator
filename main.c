@@ -7,6 +7,7 @@
 #include "calculator.h"
 #include "calculator-luas.h"
 #include "calculator-temperature.h"
+#include "calculator-number.h"
 
 int main(){
 	int pilihan = 1;
@@ -18,16 +19,17 @@ int main(){
 	bool isValid;
 
 
-	while(pilihan != 4) {
+	while(pilihan != 5) {
 		do {
 			system(CLEARSCREEN);
 			printf("MENU KALKULATOR\n");
 			printf("1. Kalkulator Umum\n");
 			printf("2. Kalkulator Suhu\n");
 			printf("3. Kalkulator Bangun Datar\n");
-			printf("4. Keluar\n");
+			printf("4. Kalkulator Konversi Bilangan\n");
+			printf("5. Keluar\n");
 
-			if ((pilihan < 1) || (pilihan > 4)) {
+			if ((pilihan < 1) || (pilihan > 5)) {
 				printf("Input opsi yang benar!\n");
 			}
 
@@ -35,7 +37,7 @@ int main(){
 			printf("INPUT: ");
 			scanf("%d", &pilihan);
 
-		} while ((pilihan < 1) || (pilihan > 4));
+		} while ((pilihan < 1) || (pilihan > 5));
 
 
 		switch (pilihan) {
@@ -71,6 +73,13 @@ int main(){
 			// pilihan kalkulator bangun ruang
 				system(CLEARSCREEN);
 				calculatorLuas();
+
+				break;
+				
+			case 4:
+			// pilihan kalkulator konversi bilangan
+				system(CLEARSCREEN);
+				bilanganConverterMenu();
 
 				break;
 
