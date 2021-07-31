@@ -9,6 +9,26 @@
 #define UNDEFINE -9999
 #define PI 3.14159265
 
+void printToScreen(char* expression) {
+	int i = 0;
+
+	while(expression[i] != '/0') {
+		if(expression[i] == 's') {
+			printf("sin");
+		} else if(expression[i] == 'c') {
+			printf("cos");
+		} else if(expression[i] == 't') {
+			printf("tan");
+		} else if(expression[i] == 'l') {
+			printf("sin");
+		} else if(expression[i] == 'n') {
+			printf("sin");
+		} else {
+
+		}
+	}
+}
+
 /* 	Type: Function
 	Deskripsi: Menampilkan ui lalu menerima ekpresi matematika dari user input dan mengembalikan ekpresi matematikanya
 	Penanggung Jawab: Luthfi Maajid
@@ -27,16 +47,16 @@ char* calculatorMenu() {
 
 		printf("\n");
 
-		printf("(0) 0     (10) (       (20) log\n");
-		printf("(1) 1     (11) )       (21) ln\n");
-		printf("(2) 2     (12) +       (22) =\n");
-		printf("(3) 3     (13) -       (23) <-\n");
-		printf("(4) 4     (14) *       (24) CE\n");
-		printf("(5) 5     (15) /        \n");
-		printf("(6) 6     (16) ^        \n");
-		printf("(7) 7     (17) sin      \n");
-		printf("(8) 8     (18) cos      \n");
-		printf("(9) 9     (19) tan      \n");
+		printf("(0) 0     (10) (       (20) tan\n");
+		printf("(1) 1     (11) )       (21) log\n");
+		printf("(2) 2     (12) +       (22) ln\n");
+		printf("(3) 3     (13) -       (23) .\n");
+		printf("(4) 4     (14) *       (24) =\n");
+		printf("(5) 5     (15) /       (25) <-\n");
+		printf("(6) 6     (16) ^       (26) CE\n");
+		printf("(7) 7     (17) v        \n");
+		printf("(8) 8     (18) sin      \n");
+		printf("(9) 9     (19) cos      \n");
 
 		if ((pilihan < 0) || (pilihan >24)) {
 			// user mamasukkan opsi yang tidak sesuai
@@ -46,15 +66,15 @@ char* calculatorMenu() {
 		printf("INPUT: ");
 		scanf("%d", &pilihan);
 
-		if (pilihan == 23) {
+		if (pilihan == 25) {
 			// user memilih opsi <- (23) hapus 1 char
 			if (char_counter == 0) {
 				continue;
 			}
 			char_counter--;
 			math_expression[char_counter] = '\0';
-		} else if (pilihan == 24) {
-			// user memilih opsi CE (24) hapus semua
+		} else if (pilihan == 26) {
+			// user memilih opsi CE (26) hapus semua
 			for (int i=char_counter-1; i >= 0; i--) {
 				math_expression[i] = '\0';
 			}
@@ -93,23 +113,31 @@ char* calculatorMenu() {
 						break;
 
 					case 17:
-						math_expression[char_counter] = 's';
+						math_expression[char_counter] = 'v';
 						break;
 
 					case 18:
-						math_expression[char_counter] = 'c';
+						math_expression[char_counter] = 's';
 						break;
 							
 					case 19:
-						math_expression[char_counter] = 't';
+						math_expression[char_counter] = 'c';
 						break;
 
 					case 20:
-						math_expression[char_counter] = 'l';
+						math_expression[char_counter] = 't';
 						break;
 
 					case 21:
+						math_expression[char_counter] = 'l';
+						break;
+					
+					case 22:
 						math_expression[char_counter] = 'n';
+						break;
+
+					case 23:
+						math_expression[char_counter] = '.';
 						break;
 
 					default:
@@ -118,7 +146,7 @@ char* calculatorMenu() {
 			}
 			char_counter++;
 		}
-	} while (pilihan != 22);
+	} while (pilihan != 24);
 
 	return (char*) math_expression;
 }
@@ -359,16 +387,43 @@ void convertExpression(char **expression, float *calculateResult, bool *isValid)
 						if(getDegree(**expression) < currentDegree){
 							if(getDegree(Info(T).operator) < getDegree(**expression)) { // merupakan derajat tertinggi
 								searchPos = Parent(lastNode);
-								while(getDegree(Info(Parent(searchPos)).operator) > getDegree(**expression)) {
-									searchPos = Parent(searchPos);
+								if(searchPos == T) {
+									while(getDegree(Info(Parent(searchPos)).operator) > getDegree(**expression)) {
+										searchPos = Parent(searchPos);
+									}
+									// Restrukturisasi Sub Tree
+									ChangeRoot(&searchPos, tempInfo, true);
+									lastNode = searchPos;
+								} else {
+									// Restrukturisasi Tree
+									ChangeRoot(&T, tempInfo, true);
+									lastNode = T;
 								}
-								// Rotasi kiri
-								ChangeRoot(&searchPos, tempInfo, true);
-								lastNode = searchPos;
 							} else {
 								// Restrukturisasi Tree
 								ChangeRoot(&T, tempInfo, true);
 								lastNode = T;
+							}
+						} else if(getDegree(**expression) == currentDegree) {
+							if(getDegree(**expression) == 1) {
+								// Restrukturisasi Tree
+								ChangeRoot(&T, tempInfo, true);
+								lastNode = T;
+							} else {
+								// Restrukturisasi Sub Tree
+								searchPos = Parent(lastNode);
+								if(searchPos != T) {
+									while(getDegree(Info(Parent(searchPos)).operator) > getDegree(**expression) && Parent(searchPos) != Nil) {
+										searchPos = Parent(searchPos);
+									}
+									// Restrukturisasi Sub Tree
+									ChangeRoot(&searchPos, tempInfo, true);
+									lastNode = searchPos;
+								} else {
+									// Restrukturisasi Tree
+									ChangeRoot(&T, tempInfo, true);
+									lastNode = T;
+								}
 							}
 						} else {
 							if(getDegree(**expression) == 1) {
