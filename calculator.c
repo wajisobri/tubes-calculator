@@ -11,7 +11,7 @@
 
 void printToScreen(char* expression) {
 	int i = 0;
-	while(expression[i] != '/0') {
+	while(expression[i] != '\0') {
 		if(expression[i] == 's') {
 			printf("sin");
 		} else if(expression[i] == 'c') {
@@ -19,11 +19,11 @@ void printToScreen(char* expression) {
 		} else if(expression[i] == 't') {
 			printf("tan");
 		} else if(expression[i] == 'l') {
-			printf("sin");
+			printf("log");
 		} else if(expression[i] == 'n') {
-			printf("sin");
+			printf("ln");
 		} else {
-
+			printf("%c",expression[i]);
 		}
 		i++;
 	}
@@ -42,7 +42,9 @@ char* calculatorMenu() {
 		system(CLEARSCREEN);
 		printf("KALKULATOR UMUM\n");
 		printf("===============================\n");
-		printf("%s\n", math_expression);
+		// printf("%s\n", math_expression);
+		printToScreen(math_expression);
+		printf("\n");
 		printf("===============================\n");
 
 		printf("\n");
