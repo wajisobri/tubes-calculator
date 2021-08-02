@@ -2,32 +2,88 @@
 #include <stdbool.h>
 #include <math.h>
 #include "calculator-number.h"
+#include <string.h>
 
-int decimalToBinary(int decimal) {
-	static int counter = 0;
-	counter++;
-	if (decimal==0) return 0;
-	if (decimal==1) return pow(10,counter-1);
-	int r = (decimal % 2) * (pow(10,counter-1));
-	return decimalToBinary(decimal/2) + r;
+void reverseString(char* str) {
+	int n = strlen(str);
+	int i, j;
+	char c;
+
+	for (i=0, j = n -1; i < j; i++, j--) {
+		c = str[i];
+		str[i] = str[j];
+		str[j] = c;
+	}
 }
 
-int decimalToOctal(int decimal) {
-	static int counter = 0;
-	counter++;
-	if(decimal==0) return 0;
-	if(decimal==1) return pow(10, counter-1);
-	int r = (decimal % 8) * (pow(10, counter-1));
-	return decimalToOctal(decimal/8) + r;
+char* decimalToBinary(int decimal) {
+	static char binaryNum[1001];
+
+	int i = 0;
+
+	while (decimal != 0) {
+		int temp = 0;
+
+		temp = decimal % 2;
+
+		binaryNum[i] = temp + 48;
+		i++;
+
+		decimal /= 2;
+	}
+
+	reverseString(binaryNum);
+
+	return (char*) binaryNum;
+
 }
 
-int decimalToHexadecimal(int decimal) {
-	static int counter = 0;
-	counter++;
-	if (decimal==0) return 0;
-	if (decimal==1) return pow(10,counter-1);
-	int r = (decimal % 16) * (pow(10,counter-1));
-	return decimalToHexadecimal(decimal/16) + r;
+char* decimalToOctal(int decimal) {
+	static char octalNum[1001];
+
+	int i = 0;
+
+	while (decimal != 0) {
+		int temp = 0;
+
+		temp = decimal % 8;
+
+		octalNum[i] = temp + 48;
+		i++;
+
+		decimal /= 8;
+	}
+
+	reverseString(octalNum);
+
+	return (char*) octalNum;
+
+}
+
+char* decimalToHexadecimal(int decimal) {
+	static char hexaNum[1001];
+
+	int i = 0;
+
+	while (decimal != 0) {
+		int temp = 0;
+
+		temp = decimal % 16;
+
+		if (temp < 10) {
+			hexaNum[i] = temp + 48;
+			i++;
+		} else {
+			hexaNum[i] = temp + 55;
+			i++;
+		}
+
+		decimal /= 16;
+	}
+
+	reverseString(hexaNum);
+
+	return (char*) hexaNum;
 }
 
 int binaryToDecimal(int binary) {
@@ -50,6 +106,9 @@ int octalToDecimal(int octal, int i) {
 
 void bilanganConverterMenu() {
 	int selected_value, option, result[3];
+	char result_hexa[1001];
+	char result_binary[1001];
+	char result_octal[1001];
 	
 	printf("===============================\n");
     printf("=      Konversi Bilangan      =\n");
@@ -65,35 +124,35 @@ void bilanganConverterMenu() {
 		case 1:
             printf("Masukkan angka desimal: \n");
             scanf("%d",&selected_value);
-			result[0] = decimalToBinary(selected_value);
-            result[1] = decimalToOctal(selected_value);
-            result[2] = decimalToHexadecimal(selected_value);
+			strcpy(result_binary, decimalToBinary(selected_value));
+			strcpy(result_octal, decimalToOctal(selected_value));
+			strcpy(result_hexa, decimalToHexadecimal(selected_value));
 
-            printf("Binary : %d\n", result[0]);
-            printf("Octal : %o\n", result[1]);
-            printf("Hexa : %X\n", result[2]);
+            printf("Binary : %s\n", result_binary);
+            printf("Octal : %s\n", result_octal);
+            printf("Hexa : %s\n", result_hexa);
 			break;
 		case 2:
 			printf("Masukkan angka biner: \n");
             scanf("%d",&selected_value);
 			result[0] = binaryToDecimal(selected_value);
-            result[1] = decimalToOctal(result[0]);
-            result[2] = decimalToHexadecimal(result[0]);
+			strcpy(result_octal, decimalToOctal(result[0]));
+			strcpy(result_hexa, decimalToHexadecimal(result[0]));
 
             printf("Decimal : %d\n", result[0]);
-            printf("Octal : %o\n", result[1]);
-            printf("Hexa : %X\n", result[2]);
+            printf("Octal : %s\n", result_octal);
+            printf("Hexa : %s\n", result_hexa);
 			break;
 		case 3:
 			printf("Masukkan angka oktal: \n");
             scanf("%d",&selected_value);
 			result[0] = octalToDecimal(selected_value,0);
-            result[1] = decimalToBinary(result[0]);
-            result[2] = decimalToHexadecimal(result[0]);
+			strcpy(result_binary, decimalToBinary(result[0]));
+			strcpy(result_hexa, decimalToHexadecimal(result[0]));
 
             printf("Decimal : %d\n", result[0]);
-            printf("Binary : %o\n", result[1]);
-            printf("Hexa : %X\n", result[2]);
+            printf("Binary : %s\n", result_binary);
+            printf("Hexa : %s\n", result_hexa);
 			break;
 		default:
 			break;

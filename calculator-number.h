@@ -4,9 +4,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int decimalToBinary(int decimal);
-int decimalToOctal(int decimal);
-int decimalToHexadecimal(int decimal);
+void reverseString(char* str);
+char* decimalToBinary(int decimal);
+char* decimalToOctal(int decimal);
+char* decimalToHexadecimal(int decimal);
 int binaryToDecimal(int binary);
 int octalToDecimal(int octal, int i);
 void bilanganConverterMenu();
