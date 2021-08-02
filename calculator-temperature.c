@@ -28,11 +28,11 @@ float celciusConverter(float c, char to) {
 float reamurConverter(float r, char to) {
     float result;
 
-    if(tolower(to) == 'C')
+    if(tolower(to) == 'c')
         result = (5.0/4.0) * r;
-    else if(tolower(to) == 'F')
+    else if(tolower(to) == 'f')
         result = (9.0/4.0) * r + 32;
-    else if(tolower(to) == 'K')
+    else if(tolower(to) == 'k')
         result = (5.0/4.0) * r + 273;
     else
         result = r;
@@ -43,11 +43,11 @@ float reamurConverter(float r, char to) {
 float fahrenheitConverter(float f, char to) {
     float result;
 
-    if(tolower(to) == 'C')
+    if(tolower(to) == 'c')
         result = (5.0/9.0) * (f - 32);
-    else if(tolower(to) == 'R')
+    else if(tolower(to) == 'r')
         result = (4.0/9.0) * (f - 32);
-    else if(tolower(to) == 'K')
+    else if(tolower(to) == 'k')
         result = (5.0/9.0) * (f - 32) + 273;
     else
         result = f;
@@ -58,11 +58,11 @@ float fahrenheitConverter(float f, char to) {
 float kelvinConverter(float k, char to) {
     float result;
 
-    if(tolower(to) == 'C')
+    if(tolower(to) == 'c')
         result = k - 273;
-    else if(tolower(to) == 'F')
+    else if(tolower(to) == 'f')
         result = (9.0/5.0) * (k - 273) + 32;
-    else if(tolower(to) == 'R')
+    else if(tolower(to) == 'r')
         result = (4.0/5.0) * (k - 273);
     else
         result = k;
