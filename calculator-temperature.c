@@ -18,7 +18,7 @@ float celciusConverter(float c, char to) {
     else if(tolower(to) == 'f')
         result = (9.0/5.0) * c + 32;
     else if(tolower(to) == 'k')
-        result = c + 32;
+        result = c + 273;
     else
         result = c;
 
