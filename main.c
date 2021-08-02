@@ -8,6 +8,8 @@
 #include "calculator-luas.h"
 #include "calculator-temperature.h"
 #include "calculator-number.h"
+#include "credits.h"
+#include "help.h"
 
 int main(){
 	int pilihan = 1;
@@ -19,7 +21,7 @@ int main(){
 	bool isValid;
 
 
-	while(pilihan != 5) {
+	while(pilihan != 7) {
 		do {
 			system(CLEARSCREEN);
 			printf("MENU KALKULATOR\n");
@@ -27,9 +29,11 @@ int main(){
 			printf("2. Kalkulator Suhu\n");
 			printf("3. Kalkulator Bangun Datar\n");
 			printf("4. Kalkulator Konversi Bilangan\n");
-			printf("5. Keluar\n");
+			printf("5. Bantuan\n");
+			printf("6. Credits\n");
+			printf("7. Keluar\n");
 
-			if ((pilihan < 1) || (pilihan > 5)) {
+			if ((pilihan < 1) || (pilihan > 7)) {
 				printf("Input opsi yang benar!\n");
 			}
 
@@ -37,7 +41,7 @@ int main(){
 			printf("INPUT: ");
 			scanf("%d", &pilihan);
 
-		} while ((pilihan < 1) || (pilihan > 5));
+		} while ((pilihan < 1) || (pilihan > 7));
 
 
 		switch (pilihan) {
@@ -50,6 +54,7 @@ int main(){
 				isValid = validateExpression(expressionInput);
 
 				if(isValid) {
+					// cek validitas ekpresi matematika
 					expressionInputAddr = expressionInput;
 					convertExpression(&expressionInputAddr, &calculateResult, &isValid);
 				} else {
@@ -83,16 +88,33 @@ int main(){
 
 				break;
 
+			case 5:
+			// pilihan menu bantuan
+				system(CLEARSCREEN);
+				helpMenu();
+
+				break;
+
+			case 6:
+			// pilihan menu credits
+				system(CLEARSCREEN);
+				creditsMenu();
+
+				break;
+
 			default:
 				break;
 		}
 
-		char ch;
-		printf("\n\nUlangi? (y/n): ");
-		scanf("%s", &ch);
-		if (tolower(ch) != 'y') {
-			break;
+		if ((pilihan != 7) && (pilihan != 5) && (pilihan != 6)){
+			char ch;
+			printf("\n\nUlangi? (y/n): ");
+			scanf("%s", &ch);
+			if (tolower(ch) != 'y') {
+				break;
+			}
 		}
+
 	}
 
 }

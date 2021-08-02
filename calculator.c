@@ -11,7 +11,6 @@
 
 void printToScreen(char* expression) {
 	int i = 0;
-
 	while(expression[i] != '/0') {
 		if(expression[i] == 's') {
 			printf("sin");
@@ -26,6 +25,7 @@ void printToScreen(char* expression) {
 		} else {
 
 		}
+		i++;
 	}
 }
 
@@ -58,7 +58,7 @@ char* calculatorMenu() {
 		printf("(8) 8     (18) sin      \n");
 		printf("(9) 9     (19) cos      \n");
 
-		if ((pilihan < 0) || (pilihan >24)) {
+		if ((pilihan < 0) || (pilihan >26)) {
 			// user mamasukkan opsi yang tidak sesuai
 			printf("Pilih opsi yang benar!");
 		}
