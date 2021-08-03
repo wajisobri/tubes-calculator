@@ -35,8 +35,13 @@ void printToScreen(char* expression) {
 	*/
 char* calculatorMenu() {
 	int pilihan = 1;
-	static char math_expression[1001] = "";
+	static char math_expression[1001];
 	int char_counter = 0;
+
+	// Ensure to delete all character
+	for (int i=strlen(math_expression)-1; i >= 0; i--) {
+		math_expression[i] = '\0';
+	}
 
 	do {
 		system(CLEARSCREEN);
@@ -69,7 +74,7 @@ char* calculatorMenu() {
 		scanf("%d", &pilihan);
 
 		if (pilihan == 25) {
-			// user memilih opsi <- (23) hapus 1 char
+			// user memilih opsi <- (25) hapus 1 char
 			if (char_counter == 0) {
 				continue;
 			}
@@ -164,7 +169,7 @@ int getDegree(char operator) {
 		case '*' : return 2; break;
 		case '/' : return 2; break;
 		case '^' : return 3; break;
-		case 'v' : return 3; break;
+		case 'v' : return 4; break;
 		case 's' : return 4; break;
 		case 'c' : return 4; break;
 		case 't' : return 4; break;
@@ -366,7 +371,7 @@ void convertExpression(char **expression, float *calculateResult, bool *isValid)
 
 		} else if(getCharType(**expression) == -1) { // merupakan jenis operator
 			tempInfo = CreateInfo(UNDEFINE, **expression);
-			if(getDegree(**expression) != 4) { // bukan merupakan operator trigonometri(sin/cos/tan/log/ln)
+			if(getDegree(**expression) != 4) { // bukan merupakan operator trigonometri(akar(v)/sin/cos/tan/log/ln)
 				if(!isLastOperator) { // karakter sebelumnya bukan operator
 					if(getDegree(**expression) == 5) { // merupakan titik(decimal)
 						if(isDecimal){ // karakter sebelumnya titik
@@ -443,7 +448,7 @@ void convertExpression(char **expression, float *calculateResult, bool *isValid)
 				} else { // karakter sebelumnya operator
 					*isValid = false;
 				}
-			} else { // merupakan operator trigonometri(sin/cos/tan/log/ln)
+			} else { // merupakan operator trigonometri(akar(v)/sin/cos/tan/log/ln)
 				if(isLastOperator) { // karakter sebelumnya operator
 					isDecimal = false;
 					// Add anak kanan
