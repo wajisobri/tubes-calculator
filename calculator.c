@@ -400,7 +400,7 @@ void convertExpression(char **expression, float *calculateResult, bool *isValid)
 						if(getDegree(**expression) < currentDegree){
 							if(getDegree(Info(T).operator) < getDegree(**expression)) { // merupakan derajat tertinggi
 								searchPos = Parent(lastNode);
-								if(searchPos == T) {
+								if(searchPos != T) {
 									while(getDegree(Info(Parent(searchPos)).operator) > getDegree(**expression)) {
 										searchPos = Parent(searchPos);
 									}
@@ -500,7 +500,7 @@ void convertExpression(char **expression, float *calculateResult, bool *isValid)
 	}
 
 	// debug
-	// PrintTree(T);
+	PrintTree(T);
 	
 	if(*isValid) { // penyusunan ekspresi valid
 		*calculateResult = evaluateTree(T, isValid);
