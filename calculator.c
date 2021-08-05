@@ -70,14 +70,14 @@ char* calculatorMenu() {
 		printf("(8) 8     (18) sin      \n");
 		printf("(9) 9     (19) cos      \n");
 
+		printf("Masukkan tombol diantara 1 s.d. 26 untuk memilih satu karakter\n");
+		printf("INPUT: ");
+		scanf("%d", &pilihan);
+
 		if ((pilihan < 0) || (pilihan >26)) {
 			// user mamasukkan opsi yang tidak sesuai
 			printf("Pilih opsi yang benar!\n");
 		}
-
-		printf("Masukkan tombol diantara 1 s.d. 26 untuk memilih satu karakter\n");
-		printf("INPUT: ");
-		scanf("%d", &pilihan);
 
 		if (pilihan == 25) {
 			// user memilih opsi <- (25) hapus 1 char

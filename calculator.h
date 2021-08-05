@@ -11,6 +11,8 @@
 #define UNDEFINE -9999
 #define PI 3.14159265
 
+void printToScreen(char* expression);
+
 /* 	Type: Function
 	Deskripsi: Menampilkan ui lalu menerima ekpresi matematika dari user input dan mengembalikan ekpresi matematikanya
 	Penanggung Jawab: Luthfi Maajid

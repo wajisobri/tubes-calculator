@@ -62,6 +62,7 @@ int main(){
 				}
 
 				if (isValid) {
+					printf("\nMATH EXPRESSION: "); printToScreen(expressionInput);
 					printf("\nRESULT: %.2f\n", calculateResult);
 				}
 
