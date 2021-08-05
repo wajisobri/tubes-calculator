@@ -16,7 +16,7 @@ int lingkaran();
 float sisi1,sisi2,tinggi;
 float hasil;
 int pilih;
-int phi = 3.14;
+float phi = 3.14;
 
 /* 	Type: Functiom
 	Menghitung luas Segitiga
@@ -112,7 +112,7 @@ int trapesium(){
 	printf("Masukkan sisi atas\n");
 	scanf("%f",&sisi2);
 	printf("Masukkan sisi tinggi\n");
-	scanf("%f",&sisi2);
+	scanf("%f",&tinggi);
 	hasil=0.5*(sisi1+sisi2)*tinggi;
 	printf("Luas = %.2f",hasil);
 }
