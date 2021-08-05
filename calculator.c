@@ -51,9 +51,14 @@ char* calculatorMenu() {
 		printToScreen(math_expression);
 		printf("\n");
 		printf("===============================\n");
+		printf("Contoh Ekspresi Valid\n");
+		printf("Tambah/Kurang : 14+88-19+3\n");
+		printf("Kali/Bagi     : 80/5+8*9/24\n");
+		printf("Pangkat/Akar  : v144+52/2*2^3-24+2^5/16\n");
+		printf("Trigonometri  : v225*3/9+86*sin30+cos60   (dalam derajat, misal sin30 = 1/2)\n");
+		printf("Logaritma     : 8*9/24+log100+ln80   (log100 = 10log100 = 2)\n");
 
-		printf("\n");
-
+		printf("\nPilihan Tombol\n");
 		printf("(0) 0     (10) (       (20) tan\n");
 		printf("(1) 1     (11) )       (21) log\n");
 		printf("(2) 2     (12) +       (22) ln\n");
@@ -67,9 +72,10 @@ char* calculatorMenu() {
 
 		if ((pilihan < 0) || (pilihan >26)) {
 			// user mamasukkan opsi yang tidak sesuai
-			printf("Pilih opsi yang benar!");
+			printf("Pilih opsi yang benar!\n");
 		}
 
+		printf("Masukkan tombol diantara 1 s.d. 26 untuk memilih satu karakter\n");
 		printf("INPUT: ");
 		scanf("%d", &pilihan);
 
