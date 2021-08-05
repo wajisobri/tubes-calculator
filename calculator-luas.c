@@ -95,7 +95,7 @@ int segitiga(){
 	scanf("%f",&sisi1);
 	printf("Masukkan sisi tinggi\n");
 	scanf("%f",&sisi2);
-	hasil=0.5*sisi1*sisi1;
+	hasil=0.5*sisi1*sisi2;
 	printf("Luas = %.2f",hasil);
 }
 
@@ -128,7 +128,7 @@ int layang(){
 	scanf("%f",&sisi1);
 	printf("Masukkan diagonal lebar\n");
 	scanf("%f",&sisi2);
-	hasil=0.5*sisi1*sisi1;
+	hasil=0.5*sisi1*sisi2;
 	printf("Luas = %.2f",hasil);
 }
 /* 	Type: Functiom
@@ -142,7 +142,7 @@ int belahKetupat(){
 	scanf("%f",&sisi1);
 	printf("Masukkan diagonal 2\n");
 	scanf("%f",&sisi2);
-	hasil=0.5*sisi1*sisi1;
+	hasil=0.5*sisi1*sisi2;
 	printf("Luas = %.2f",hasil);
 }
 
