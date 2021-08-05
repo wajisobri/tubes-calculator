@@ -500,7 +500,7 @@ void convertExpression(char **expression, float *calculateResult, bool *isValid)
 	}
 
 	// debug
-	PrintTree(T);
+	// PrintTree(T);
 	
 	if(*isValid) { // penyusunan ekspresi valid
 		*calculateResult = evaluateTree(T, isValid);
